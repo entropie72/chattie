@@ -1,3 +1,6 @@
+import 'package:chattie/controllers/auth.dart';
+import 'package:chattie/pages/home_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';
@@ -9,6 +12,7 @@ void main() async {
   );
   runApp(const MaterialApp(
     home: App(),
+    debugShowCheckedModeBanner: false,
   ));
 }
 
@@ -17,10 +21,11 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('This is some text'),
-      ),
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        return snapshot.hasData ? const HomePage() : const Auth();
+      },
     );
   }
 }
