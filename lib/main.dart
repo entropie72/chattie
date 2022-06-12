@@ -10,10 +10,12 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MaterialApp(
-    home: App(),
-    debugShowCheckedModeBanner: false,
-  ));
+  runApp(
+    const MaterialApp(
+      home: App(),
+      debugShowCheckedModeBanner: false,
+    ),
+  );
 }
 
 class App extends StatelessWidget {

@@ -1,9 +1,15 @@
+import 'package:chattie/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   void handleSignOut() async {
     await FirebaseAuth.instance.signOut();
   }
@@ -13,7 +19,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: MaterialButton(
-          onPressed: () => handleSignOut,
+          onPressed: () => handleSignOut(),
           child: const Text('Sign out'),
         ),
       ),
