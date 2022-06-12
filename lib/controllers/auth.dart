@@ -23,6 +23,8 @@ class _AuthState extends State<Auth> {
         ? LoginPage(
             goToSignUpPage: _changeAuthPage,
           )
-        : const SignUpPage();
+        : SignUpPage(
+            goToLoginPage: _changeAuthPage,
+          );
   }
 }
