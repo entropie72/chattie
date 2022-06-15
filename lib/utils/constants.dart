@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 // Colors
 const Color primaryColor = Color(0xFF6667AB);
+const Color greyBackgroundColor = Color(0xFFDCDCDC);
 const Color greyTextColor = Color(0xFF6A6A6A);
 const Color dividerColor = Color(0xFFC9C9C9);
 

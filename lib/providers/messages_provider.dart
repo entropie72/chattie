@@ -18,6 +18,7 @@ final messagesListProvider = FutureProvider<List>((ref) async {
         await _db.collection('users').doc(element.id).get();
     final Map user = snapshot.data() as Map;
     final Map<String, dynamic> messagePreview = {
+      'uid': user['uid'],
       'avatar_uri': user['avatar_uri'],
       'title': (user['display_name'] as String).isNotEmpty
           ? user['display_name']
