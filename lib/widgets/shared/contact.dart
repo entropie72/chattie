@@ -16,7 +16,7 @@ class Contact extends StatelessWidget {
       contentPadding: const EdgeInsets.all(0),
       minVerticalPadding: 0,
       title: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
         child: Column(
           children: [
             Row(
@@ -55,7 +55,7 @@ class Contact extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 16,
+              height: 12,
             ),
             const BaseDivider(),
           ],

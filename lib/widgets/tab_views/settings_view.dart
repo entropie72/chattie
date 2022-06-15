@@ -14,12 +14,33 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, ref, child) => Center(
-        child: MaterialButton(
-          onPressed: () => handleSignOut(ref),
-          child: const Text('Sign Out'),
-        ),
-      ),
+      builder: (context, ref, child) {
+        final AsyncValue<Map> userInfo = ref.watch(currentUserInfoProvider);
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            userInfo.when(
+              data: (userInfo) => Center(
+                child: Text(userInfo['username']),
+              ),
+              error: (err, _) => Center(
+                child: Text('$err'),
+              ),
+              loading: () => const Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            MaterialButton(
+              onPressed: () => handleSignOut(ref),
+              child: const Text('Sign Out'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
