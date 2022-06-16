@@ -44,39 +44,43 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDlYDObbCxQB1hgBJCxwZqdW5stcTcDn1g',
-    appId: '1:48671377662:web:745e5d031b4bd1a09ebdaf',
-    messagingSenderId: '48671377662',
-    projectId: 'kaos-chattie',
-    authDomain: 'kaos-chattie.firebaseapp.com',
-    storageBucket: 'kaos-chattie.appspot.com',
+    apiKey: 'AIzaSyDPebNeSFfIXhFHUfd7rjdevPKcqw8okKA',
+    appId: '1:145279154636:web:9edfe4c1cd7f4b7456c569',
+    messagingSenderId: '145279154636',
+    projectId: 'kaosmpd-chattie',
+    authDomain: 'kaosmpd-chattie.firebaseapp.com',
+    databaseURL: 'https://kaosmpd-chattie-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'kaosmpd-chattie.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDY2SOLb7eRQy_OIr5V9QFRKW_g8dvqEOo',
-    appId: '1:48671377662:android:06c6b79160e15aa39ebdaf',
-    messagingSenderId: '48671377662',
-    projectId: 'kaos-chattie',
-    storageBucket: 'kaos-chattie.appspot.com',
+    apiKey: 'AIzaSyDF-jl4k9SqV1J9Ti9c6ENRKYZ8JABvz6E',
+    appId: '1:145279154636:android:d602368eee990ad456c569',
+    messagingSenderId: '145279154636',
+    projectId: 'kaosmpd-chattie',
+    databaseURL: 'https://kaosmpd-chattie-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'kaosmpd-chattie.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyA6ysku_x8WvF0YNgRGEygdikewvSvKF4w',
-    appId: '1:48671377662:ios:de658fe1e59aa3fd9ebdaf',
-    messagingSenderId: '48671377662',
-    projectId: 'kaos-chattie',
-    storageBucket: 'kaos-chattie.appspot.com',
-    iosClientId: '48671377662-7i8d85h2ma33ef3lfsq4bljjf212gona.apps.googleusercontent.com',
+    apiKey: 'AIzaSyD2zSZh-ns3e_qXujrsfnisQgTh6ofcW14',
+    appId: '1:145279154636:ios:8c7546be0f4b8b0d56c569',
+    messagingSenderId: '145279154636',
+    projectId: 'kaosmpd-chattie',
+    databaseURL: 'https://kaosmpd-chattie-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'kaosmpd-chattie.appspot.com',
+    iosClientId: '145279154636-r8eheogtg1eojlchk3lqv07itgi3g7aq.apps.googleusercontent.com',
     iosBundleId: 'dev.kaos.chattie',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyA6ysku_x8WvF0YNgRGEygdikewvSvKF4w',
-    appId: '1:48671377662:ios:de658fe1e59aa3fd9ebdaf',
-    messagingSenderId: '48671377662',
-    projectId: 'kaos-chattie',
-    storageBucket: 'kaos-chattie.appspot.com',
-    iosClientId: '48671377662-7i8d85h2ma33ef3lfsq4bljjf212gona.apps.googleusercontent.com',
+    apiKey: 'AIzaSyD2zSZh-ns3e_qXujrsfnisQgTh6ofcW14',
+    appId: '1:145279154636:ios:8c7546be0f4b8b0d56c569',
+    messagingSenderId: '145279154636',
+    projectId: 'kaosmpd-chattie',
+    databaseURL: 'https://kaosmpd-chattie-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'kaosmpd-chattie.appspot.com',
+    iosClientId: '145279154636-r8eheogtg1eojlchk3lqv07itgi3g7aq.apps.googleusercontent.com',
     iosBundleId: 'dev.kaos.chattie',
   );
 }

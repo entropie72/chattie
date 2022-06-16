@@ -1,41 +1,35 @@
 {
   "project_info": {
-    "project_number": "48671377662",
-    "project_id": "kaos-chattie",
-    "storage_bucket": "kaos-chattie.appspot.com"
+    "project_number": "145279154636",
+    "firebase_url": "https://kaosmpd-chattie-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "kaosmpd-chattie",
+    "storage_bucket": "kaosmpd-chattie.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:48671377662:android:06c6b79160e15aa39ebdaf",
+        "mobilesdk_app_id": "1:145279154636:android:d602368eee990ad456c569",
         "android_client_info": {
           "package_name": "dev.kaos.chattie"
         }
       },
       "oauth_client": [
         {
-          "client_id": "48671377662-ktptkth4li0kpjgtfr8tjuf2f3fti7dn.apps.googleusercontent.com",
+          "client_id": "145279154636-373rkec5ba7hv6vljdqb09dmgrnf8ajp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDY2SOLb7eRQy_OIr5V9QFRKW_g8dvqEOo"
+          "current_key": "AIzaSyDF-jl4k9SqV1J9Ti9c6ENRKYZ8JABvz6E"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "48671377662-ktptkth4li0kpjgtfr8tjuf2f3fti7dn.apps.googleusercontent.com",
+              "client_id": "145279154636-373rkec5ba7hv6vljdqb09dmgrnf8ajp.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "48671377662-86tdc90m33mc48s9s458n80rbg883pc5.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.flutterFirebase"
-              }
             }
           ]
         }
