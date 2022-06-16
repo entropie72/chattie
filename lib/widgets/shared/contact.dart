@@ -24,7 +24,7 @@ class Contact extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(48),
                   child: Image.network(
-                    contact['avatar_uri'],
+                    contact['avatarUri'],
                     width: 48,
                     height: 48,
                     fit: BoxFit.cover,
@@ -41,13 +41,13 @@ class Contact extends StatelessWidget {
                       style: const TextStyle(
                           fontSize: bodyTextSize, fontWeight: FontWeight.w600),
                     ),
-                    if ((contact['display_name'] as String).isNotEmpty)
+                    if ((contact['displayName'] as String).isNotEmpty)
                       const SizedBox(
                         height: 2,
                       ),
-                    if ((contact['display_name'] as String).isNotEmpty)
+                    if ((contact['displayName'] as String).isNotEmpty)
                       Text(
-                        (contact['display_name'] as String).toUpperCase(),
+                        (contact['displayName'] as String).toUpperCase(),
                         style: displayNameTextStyle,
                       ),
                   ],

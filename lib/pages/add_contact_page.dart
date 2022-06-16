@@ -2,7 +2,7 @@ import 'package:chattie/utils/constants.dart';
 import 'package:chattie/widgets/add_contact_page/search_body.dart';
 import 'package:chattie/widgets/ui/base_divider.dart';
 import 'package:chattie/widgets/ui/base_input.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -36,16 +36,21 @@ class _AddContactPageState extends State<AddContactPage> {
       return;
     }
 
-    final db = FirebaseFirestore.instance;
-    final QuerySnapshot snapshot = await db
-        .collection('users')
-        .where('username', isEqualTo: inputText)
-        .get();
+    final DatabaseReference dbRef = FirebaseDatabase.instance.ref();
+    final event = await dbRef
+        .child('users')
+        .orderByChild('username')
+        .equalTo(inputText)
+        .once();
 
-    snapshot.docs.isNotEmpty
-        ? setSearchResultState(
-            ref, SearchState.hasResult, snapshot.docs.first.data() as Map)
-        : setSearchResultState(ref, SearchState.empty, null);
+    if (!event.snapshot.exists) {
+      setSearchResultState(ref, SearchState.empty, null);
+      return;
+    }
+
+    final userFound = event.snapshot.value as Map;
+    final userFoundValue = userFound.values.toList().first;
+    setSearchResultState(ref, SearchState.hasResult, userFoundValue);
   }
 
   @override

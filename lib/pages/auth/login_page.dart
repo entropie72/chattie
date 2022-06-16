@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
         });
       }
       ref.refresh(currentUserUidProvider);
-      ref.refresh(currentUserContactsProvider);
+      // ref.refresh(currentUserContactsProvider);
     }
 
     void handleHideErrorMessage() {
