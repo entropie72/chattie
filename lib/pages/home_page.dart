@@ -18,13 +18,15 @@ class HomePage extends ConsumerStatefulWidget {
 
 class HomePageState extends ConsumerState<HomePage> {
   TabItems _currentTab = TabItems.chats;
-  List contacts = [];
+  List? contacts;
+  List<Map>? previewMessages;
 
   @override
   void initState() {
     super.initState();
     final DatabaseReference dbRef = FirebaseDatabase.instance.ref();
     final currentUserUid = ref.read(currentUserUidProvider);
+
     dbRef.child('contacts/$currentUserUid').onValue.listen((event) async {
       List<Map> contactsListWithUserInfo = [];
       List contactsList =
@@ -36,6 +38,35 @@ class HomePageState extends ConsumerState<HomePage> {
       if (mounted) {
         setState(() {
           contacts = contactsListWithUserInfo;
+        });
+      }
+    });
+
+    dbRef
+        .child('messages/preview/$currentUserUid')
+        .onValue
+        .listen((event) async {
+      List<Map> previewsWithUserInfo = [];
+      final Map previews =
+          event.snapshot.exists ? event.snapshot.value! as Map : {};
+      final previewsUid = previews.keys.toList();
+
+      for (String uid in previewsUid) {
+        final userSnapshot = await dbRef.child('users/$uid').get();
+        final user = userSnapshot.value as Map;
+        final previewWithUserInfo = {
+          'uid': user['uid'],
+          'avatarUri': user['avatarUri'],
+          'title': (user['displayName'] as String).isNotEmpty
+              ? user['displayName']
+              : '@${user['username']}',
+          ...previews[uid],
+        };
+        previewsWithUserInfo.add(previewWithUserInfo);
+      }
+      if (mounted) {
+        setState(() {
+          previewMessages = previewsWithUserInfo;
         });
       }
     });
@@ -56,7 +87,9 @@ class HomePageState extends ConsumerState<HomePage> {
       case TabItems.setting:
         return const SettingViews();
       default:
-        return const ChatsView();
+        return ChatsView(
+          previewMessages: previewMessages,
+        );
     }
   }
 

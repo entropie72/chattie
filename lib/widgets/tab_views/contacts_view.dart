@@ -3,24 +3,29 @@ import 'package:flutter/material.dart';
 
 class ContactsView extends StatelessWidget {
   const ContactsView({Key? key, required this.contacts}) : super(key: key);
-  final List contacts;
+  final List? contacts;
 
-  void handleTapOnContact() {}
+  void handleTapOnContact(BuildContext context, contact) {}
 
   @override
   Widget build(BuildContext context) {
-    if (contacts.isEmpty) {
+    if (contacts == null) {
+      return const Center(
+        child: Text('Loading...'),
+      );
+    }
+    if (contacts!.isEmpty) {
       return const Center(
         child: Text('You don\'t have any contact'),
       );
     }
     return Center(
       child: ListView.builder(
-        itemCount: contacts.length,
+        itemCount: contacts!.length,
         itemBuilder: (context, index) {
-          final contact = contacts[index];
+          final contact = contacts![index];
           return GestureDetector(
-            // onTap: () => handleTapOnContact(context, contact),
+            onTap: () => handleTapOnContact(context, contact),
             child: Contact(contact: contact),
           );
         },

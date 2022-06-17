@@ -12,9 +12,8 @@ class MessagePreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final date = DateTime.fromMillisecondsSinceEpoch(
-        message['timestamp'].seconds * 1000);
-    final formattedDate = DateFormat.MMMd().format(date);
+    final datetime = DateTime.parse(message['datetime']);
+    final formattedDate = DateFormat.MMMd().format(datetime);
     return ListTile(
       contentPadding: const EdgeInsets.all(0),
       minVerticalPadding: 0,
@@ -27,7 +26,7 @@ class MessagePreview extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(48),
                   child: Image.network(
-                    message['avatar_uri'],
+                    message['avatarUri'],
                     width: 48,
                     height: 48,
                     fit: BoxFit.cover,
@@ -62,7 +61,7 @@ class MessagePreview extends StatelessWidget {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        message['last_message'],
+                        message['lastMessage'],
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                             fontSize: 13, fontWeight: FontWeight.w300),
