@@ -1,3 +1,4 @@
+import 'package:chattie/providers/providers.dart';
 import 'package:chattie/utils/constants.dart';
 import 'package:chattie/widgets/add_contact_page/search_body.dart';
 import 'package:chattie/widgets/ui/base_divider.dart';
@@ -31,26 +32,41 @@ class _AddContactPageState extends State<AddContactPage> {
   }
 
   void handleSearch(String inputText, WidgetRef ref) async {
+    final currentUserUid = ref.watch(currentUserUidProvider);
+
     if (inputText.isEmpty) {
       setSearchResultState(ref, SearchState.beforeSearching, null);
       return;
     }
 
     final DatabaseReference dbRef = FirebaseDatabase.instance.ref();
-    final event = await dbRef
+    final searchEvent = await dbRef
         .child('users')
         .orderByChild('username')
         .equalTo(inputText)
         .once();
 
-    if (!event.snapshot.exists) {
+    if (!searchEvent.snapshot.exists) {
       setSearchResultState(ref, SearchState.empty, null);
       return;
     }
 
-    final userFound = event.snapshot.value as Map;
+    final userFound = searchEvent.snapshot.value as Map;
+    final userFoundKey = userFound.keys.toList().first;
     final userFoundValue = userFound.values.toList().first;
-    setSearchResultState(ref, SearchState.hasResult, userFoundValue);
+
+    final checkIfExistInContactsEvent = await dbRef
+        .child('contacts/$currentUserUid')
+        .orderByValue()
+        .equalTo(userFoundKey)
+        .once();
+
+    final searchResult = {
+      ...userFoundValue,
+      'isExistInContacts': checkIfExistInContactsEvent.snapshot.exists,
+    };
+
+    setSearchResultState(ref, SearchState.hasResult, searchResult);
   }
 
   @override

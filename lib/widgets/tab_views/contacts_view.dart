@@ -5,6 +5,8 @@ class ContactsView extends StatelessWidget {
   const ContactsView({Key? key, required this.contacts}) : super(key: key);
   final List contacts;
 
+  void handleTapOnContact() {}
+
   @override
   Widget build(BuildContext context) {
     if (contacts.isEmpty) {
@@ -17,7 +19,10 @@ class ContactsView extends StatelessWidget {
         itemCount: contacts.length,
         itemBuilder: (context, index) {
           final contact = contacts[index];
-          return Contact(contact: contact);
+          return GestureDetector(
+            // onTap: () => handleTapOnContact(context, contact),
+            child: Contact(contact: contact),
+          );
         },
       ),
     );

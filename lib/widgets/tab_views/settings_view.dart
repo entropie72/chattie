@@ -28,7 +28,7 @@ class _SettingViewsState extends State<SettingViews> {
                 err.toString(),
               ),
               data: (data) {
-                return Text(data['username']);
+                return Text('${data['username']} - ${data['uid']}');
               },
             ),
             MaterialButton(

@@ -28,14 +28,16 @@ class HomePageState extends ConsumerState<HomePage> {
     dbRef.child('contacts/$currentUserUid').onValue.listen((event) async {
       List<Map> contactsListWithUserInfo = [];
       List contactsList =
-          event.snapshot.value != 0 ? event.snapshot.value as List : [];
+          event.snapshot.exists ? event.snapshot.value as List : [];
       for (String contact in contactsList) {
         final snapshot = await dbRef.child('users/$contact').get();
         contactsListWithUserInfo.add(snapshot.value as Map);
       }
-      setState(() {
-        contacts = contactsListWithUserInfo;
-      });
+      if (mounted) {
+        setState(() {
+          contacts = contactsListWithUserInfo;
+        });
+      }
     });
   }
 
