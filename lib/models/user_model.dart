@@ -18,9 +18,9 @@ class UserModel {
     return {
       'uid': uid,
       'username': username,
-      'display_name': displayName,
-      'avatar_uri': avatarUri,
-      'is_online': isOnline,
+      'displayName': displayName,
+      'avatarUri': avatarUri,
+      'isOnline': isOnline,
     };
   }
 }

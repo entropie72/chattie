@@ -4,8 +4,8 @@ import 'package:chattie/providers/providers.dart';
 import 'package:chattie/utils/constants.dart';
 import 'package:chattie/widgets/ui/base_button.dart';
 import 'package:chattie/widgets/ui/base_input.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -61,14 +61,14 @@ class _SignUpPageState extends State<SignUpPage> {
     void handleSignUp(WidgetRef ref) async {
       if (isSomeFieldsNotValid()) return;
 
-      final FirebaseFirestore db = FirebaseFirestore.instance;
+      final dbRef = FirebaseDatabase.instance.ref();
+      final usernameEvent = await dbRef
+          .child('users')
+          .orderByChild('username')
+          .equalTo(_usernameController.text)
+          .once();
 
-      final QuerySnapshot<Map> snapshot = await db
-          .collection('users')
-          .where('username', isEqualTo: _usernameController.text)
-          .get();
-
-      if (snapshot.docs.isNotEmpty) {
+      if (usernameEvent.snapshot.exists) {
         setState(() {
           _errorMessage = 'This username is already in use by another account.';
         });
@@ -90,11 +90,7 @@ class _SignUpPageState extends State<SignUpPage> {
           username: _usernameController.text,
         );
 
-        await db.collection('users').doc(userId).set(user.userInfo());
-
-        await db.collection('contacts').doc(userId).set({
-          'contacts': [],
-        });
+        await dbRef.child('users/$userId').set(user.userInfo());
       } on FirebaseAuthException catch (e) {
         setState(() {
           _errorMessage = e.message!;
