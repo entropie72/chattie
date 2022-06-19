@@ -5,7 +5,9 @@ class ContactsView extends StatelessWidget {
   const ContactsView({Key? key, required this.contacts}) : super(key: key);
   final List? contacts;
 
-  void handleTapOnContact(BuildContext context, contact) {}
+  void handleTapOnContact(BuildContext context, contact) {
+    print('Tapped');
+  }
 
   @override
   Widget build(BuildContext context) {

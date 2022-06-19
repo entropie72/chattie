@@ -1,7 +1,7 @@
 import 'package:chattie/models/message_model.dart';
 import 'package:chattie/providers/providers.dart';
 import 'package:chattie/utils/constants.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,20 +12,46 @@ class TextCompose extends StatelessWidget {
 
   void handleSend(String text, WidgetRef ref) async {
     final currentUserUid = ref.watch(currentUserUidProvider);
-    final FirebaseFirestore db = FirebaseFirestore.instance;
+    final dbRef = FirebaseDatabase.instance.ref('messages');
+    final moment = DateTime.now().toString();
     final MessageModel message = MessageModel(
-      isReceived: true,
+      type: 'generic',
+      isReceived: false,
       reactions: [],
-      timestamp: Timestamp.fromDate(DateTime.now()),
+      datetime: moment,
       content: text,
     );
-    await db
-        .collection('messages')
-        .doc(currentUserUid)
-        .collection('all_messages')
-        .doc(receiverUid)
-        .collection('all_messages')
-        .add(message.getMessage());
+    final MessageModel messageInReceiverSide = MessageModel(
+      type: 'generic',
+      isReceived: true,
+      reactions: [],
+      datetime: moment,
+      content: text,
+    );
+    final preview = {
+      'datetime': moment,
+      'isReceived': false,
+      'isUnseen': true,
+      'lastMessage': 'You: $text',
+    };
+    final previewInReceiverSide = {
+      'datetime': moment,
+      'isReceived': false,
+      'isUnseen': true,
+      'lastMessage': text,
+    };
+    dbRef
+        .child('allMessages/$currentUserUid/$receiverUid')
+        .push()
+        .set(message.getMessage());
+    dbRef
+        .child('allMessages/$receiverUid/$currentUserUid')
+        .push()
+        .set(messageInReceiverSide.getMessage());
+    dbRef.child('preview/$currentUserUid/$receiverUid').set(preview);
+    dbRef
+        .child('preview/$receiverUid/$currentUserUid')
+        .set(previewInReceiverSide);
   }
 
   @override
