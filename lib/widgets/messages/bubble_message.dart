@@ -15,7 +15,7 @@ class BubbleMessage extends StatelessWidget {
         constraints: BoxConstraints(maxWidth: 0.6 * screenWidth),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
         decoration: BoxDecoration(
-          color: (message['is_received'] as bool)
+          color: (message['isReceived'] as bool)
               ? greyBackgroundColor
               : primaryColor,
           borderRadius: const BorderRadius.all(Radius.circular(12)),
@@ -24,7 +24,7 @@ class BubbleMessage extends StatelessWidget {
           message['content'],
           style: TextStyle(
             color:
-                (message['is_received'] as bool) ? Colors.black : Colors.white,
+                (message['isReceived'] as bool) ? Colors.black : Colors.white,
           ),
         ),
       ),
