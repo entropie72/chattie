@@ -9,12 +9,12 @@ class ChatsView extends StatelessWidget {
   final List<Map>? previewMessages;
 
   void handleTapOnMessagePreview(
-      BuildContext context, Map message, String currentUserUid) {
+      BuildContext context, Map metadata, String currentUserUid) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => ChatPage(
-          metadata: message,
+          metadata: metadata,
           currentUserUid: currentUserUid,
         ),
       ),

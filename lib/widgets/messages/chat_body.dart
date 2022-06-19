@@ -15,41 +15,44 @@ Widget getChatBody(List? allMessages) {
   if (allMessages.isEmpty) {
     return const Expanded(
       child: Center(
-        child: Text('You don\'t have any chats.'),
+        child: Text('Start the conversation by sending a message.'),
       ),
     );
   }
   return Expanded(
-      child: GroupedListView(
-    elements: allMessages,
-    reverse: true,
-    order: GroupedListOrder.DESC,
-    groupBy: (dynamic message) {
-      final datetime = DateTime.parse(message['datetime']);
-      return DateTime(datetime.year, datetime.month, datetime.day);
-    },
-    groupHeaderBuilder: (dynamic message) {
-      final datetime = DateTime.parse(message['datetime']);
-      return Container(
-        padding: const EdgeInsets.symmetric(vertical: 6),
-        alignment: Alignment.center,
-        child: Text(
-          DateFormat.MMMd().format(datetime),
-          style: const TextStyle(
-              color: primaryColor, fontSize: 13, fontWeight: FontWeight.w500),
-        ),
-      );
-    },
-    itemBuilder: (context, dynamic message) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Align(
-          alignment: (message['isReceived'] as bool)
-              ? Alignment.centerLeft
-              : Alignment.centerRight,
-          child: BubbleMessage(message: message),
-        ),
-      );
-    },
+      child: Padding(
+    padding: const EdgeInsets.symmetric(vertical: 6),
+    child: GroupedListView(
+      elements: allMessages,
+      reverse: true,
+      order: GroupedListOrder.DESC,
+      groupBy: (dynamic message) {
+        final datetime = DateTime.parse(message['datetime']);
+        return DateTime(datetime.year, datetime.month, datetime.day);
+      },
+      groupHeaderBuilder: (dynamic message) {
+        final datetime = DateTime.parse(message['datetime']);
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 6),
+          alignment: Alignment.center,
+          child: Text(
+            DateFormat.MMMd().format(datetime),
+            style: const TextStyle(
+                color: primaryColor, fontSize: 13, fontWeight: FontWeight.w500),
+          ),
+        );
+      },
+      itemBuilder: (context, dynamic message) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Align(
+            alignment: (message['isReceived'] as bool)
+                ? Alignment.centerLeft
+                : Alignment.centerRight,
+            child: BubbleMessage(message: message),
+          ),
+        );
+      },
+    ),
   ));
 }

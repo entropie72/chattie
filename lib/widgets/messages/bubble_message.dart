@@ -10,7 +10,7 @@ class BubbleMessage extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 2),
       child: Container(
         constraints: BoxConstraints(maxWidth: 0.6 * screenWidth),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),

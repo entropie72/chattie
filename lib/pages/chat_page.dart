@@ -29,13 +29,21 @@ class _ChatPageState extends State<ChatPage> {
     final dbRef = FirebaseDatabase.instance.ref();
     dbRef
         .child('messages/allMessages/$currentUserUid/${widget.metadata['uid']}')
+        .orderByValue()
         .onValue
         .listen((event) {
       if (mounted) {
+        List allMessagesSorted = [];
+        if (event.snapshot.exists) {
+          final allMessagesKeysSorted =
+              (event.snapshot.value as Map).keys.toList()..sort();
+          for (String key in allMessagesKeysSorted) {
+            allMessagesSorted.add((event.snapshot.value as Map)[key]);
+          }
+        }
+
         setState(() {
-          allMessages = event.snapshot.exists
-              ? (event.snapshot.value as Map).values.toList()
-              : [];
+          allMessages = allMessagesSorted;
         });
       }
     });
@@ -86,6 +94,7 @@ class _ChatPageState extends State<ChatPage> {
                 ],
               ),
             ),
+            const BaseDivider(),
             getChatBody(allMessages),
             const BaseDivider(),
             TextCompose(receiverUid: widget.metadata['uid']),

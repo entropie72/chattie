@@ -1,3 +1,4 @@
+import 'package:chattie/functions/routing.dart';
 import 'package:chattie/providers/providers.dart';
 import 'package:chattie/utils/constants.dart';
 import 'package:chattie/widgets/add_contact_page/add_contact_button.dart';
@@ -68,71 +69,75 @@ class _ContactState extends State<Contact> {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: const EdgeInsets.all(0),
-      minVerticalPadding: 0,
-      title: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-        child: Column(
-          children: [
-            Consumer(
-              builder: (context, ref, _) {
-                final String currentUserUid = ref.watch(currentUserUidProvider);
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(48),
-                          child: Image.network(
-                            widget.contact['avatarUri'],
-                            width: 48,
-                            height: 48,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '@${widget.contact['username']}',
-                              style: const TextStyle(
-                                  fontSize: bodyTextSize,
-                                  fontWeight: FontWeight.w600),
+    return Consumer(
+      builder: (context, ref, child) {
+        final String currentUserUid = ref.watch(currentUserUidProvider);
+        return GestureDetector(
+          onTap: () =>
+              handleTapOnContact(context, widget.contact, currentUserUid),
+          child: ListTile(
+            contentPadding: const EdgeInsets.all(0),
+            minVerticalPadding: 0,
+            title: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(48),
+                            child: Image.network(
+                              widget.contact['avatarUri'],
+                              width: 48,
+                              height: 48,
+                              fit: BoxFit.cover,
                             ),
-                            if ((widget.contact['displayName'] as String)
-                                .isNotEmpty)
-                              const SizedBox(
-                                height: 2,
-                              ),
-                            if ((widget.contact['displayName'] as String)
-                                .isNotEmpty)
+                          ),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
                               Text(
-                                (widget.contact['displayName'] as String)
-                                    .toUpperCase(),
-                                style: displayNameTextStyle,
+                                '@${widget.contact['username']}',
+                                style: const TextStyle(
+                                    fontSize: bodyTextSize,
+                                    fontWeight: FontWeight.w600),
                               ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    if (widget.contact['isExistInContacts'] != null)
-                      getRightActionWidget(currentUserUid),
-                  ],
-                );
-              },
+                              if ((widget.contact['displayName'] as String)
+                                  .isNotEmpty)
+                                const SizedBox(
+                                  height: 2,
+                                ),
+                              if ((widget.contact['displayName'] as String)
+                                  .isNotEmpty)
+                                Text(
+                                  (widget.contact['displayName'] as String)
+                                      .toUpperCase(),
+                                  style: displayNameTextStyle,
+                                ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      if (widget.contact['isExistInContacts'] != null)
+                        getRightActionWidget(currentUserUid),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  const BaseDivider(),
+                ],
+              ),
             ),
-            const SizedBox(
-              height: 12,
-            ),
-            const BaseDivider(),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
