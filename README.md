@@ -1,6 +1,7 @@
 # Chattie - a chat app built with Flutter and Firebase
 
-![Demo video](./demo/screen.mov)
+![Screenshot](./demo/screenshot.png)
+> There is a demo video in `demo/`
 
 Chatte uses Riverpod as the state-management solution.
 
